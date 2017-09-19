@@ -26,6 +26,7 @@ public protocol DataStore {
 
 	func history() throws -> [HistoryEntry]
 	func history(filteredByGUID: String) throws -> [HistoryEntry]
+	func history(filteredByGroupID: String) throws -> [HistoryEntry]
 	func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryEntry
 	func remove(_ entries: HistoryEntry...) throws
 	func update(_ entries: HistoryEntry...) throws
@@ -117,7 +118,11 @@ open class DefaultDataStore: DataStore {
 	open func history(filteredByGUID: String) throws -> [HistoryEntry] {
 		fatalError("Not yet implemented")
 	}
-	
+
+	open func history(filteredByGroupID: String) throws -> [HistoryEntry] {
+		fatalError("Not yet implemented")
+	}
+
 	open func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryEntry {
 		fatalError("Not yet implemented")
 	}

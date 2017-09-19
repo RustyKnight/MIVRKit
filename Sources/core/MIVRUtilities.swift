@@ -17,7 +17,6 @@ public struct MIVRUtilities {
 	
 	func removeIgnoredItems(from group: TVEpisodeGroup, tvdbID: Int) {
 		let dataStore = DataStoreService.shared
-		dataStore.hi
 	}
 	
 }
