@@ -7,15 +7,15 @@
 
 import Foundation
 
-public enum GuideEntryType: Int {
+public enum GuideItemType: Int {
 	case movie = 0
 	case tvSeries = 1
 }
 
-public protocol GuideEntry {
+public protocol GuideItem {
 	var name: String {get set}
 	var id: String {get set} // tvdbid/imdbid
-	var type: GuideEntryType {get set}
+	var type: GuideItemType {get set}
 	var lastGrab: Date? {get set} // The date/time of the last time this achieved a grab (downloaded something)
 }
 

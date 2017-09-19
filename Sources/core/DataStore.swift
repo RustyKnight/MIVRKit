@@ -9,29 +9,29 @@ import Foundation
 
 public protocol DataStore {
 
-	func guide() throws -> [GuideEntry]
-	func addToGuide(named: String, id: String, type: GuideEntryType, lastGrab: Date?) throws -> GuideEntry
-	func remove(_ entries: GuideEntry...) throws
-	func update(_ entries: GuideEntry...) throws
-	func remove(_ entries: [GuideEntry]) throws
-	func update(_ entries: [GuideEntry]) throws
+	func guide() throws -> [GuideItem]
+	func addToGuide(named: String, id: String, type: GuideItemType, lastGrab: Date?) throws -> GuideItem
+	func remove(_ entries: GuideItem...) throws
+	func update(_ entries: GuideItem...) throws
+	func remove(_ entries: [GuideItem]) throws
+	func update(_ entries: [GuideItem]) throws
 
-	func queue() throws -> [QueueEntry]
-	func queue(filteredByID: String) throws -> [QueueEntry]
-	func addToQueue(guid: String, id: String, name: String, status: QueueEntryStatus, score: Int) throws -> QueueEntry
-	func remove(_ entries: QueueEntry...) throws
-	func update(_ entries: QueueEntry...) throws
-	func remove(_ entries: [QueueEntry]) throws
-	func update(_ entries: [QueueEntry]) throws
+	func queue() throws -> [QueueItem]
+	func queue(filteredByID: String) throws -> [QueueItem]
+	func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int) throws -> QueueItem
+	func remove(_ entries: QueueItem...) throws
+	func update(_ entries: QueueItem...) throws
+	func remove(_ entries: [QueueItem]) throws
+	func update(_ entries: [QueueItem]) throws
 
-	func history() throws -> [HistoryEntry]
-	func history(filteredByGUID: String) throws -> [HistoryEntry]
-	func history(filteredByGroupID: String) throws -> [HistoryEntry]
-	func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryEntry
-	func remove(_ entries: HistoryEntry...) throws
-	func update(_ entries: HistoryEntry...) throws
-	func remove(_ entries: [HistoryEntry]) throws
-	func update(_ entries: [HistoryEntry]) throws
+	func history() throws -> [HistoryItem]
+	func history(filteredByGUID: String) throws -> [HistoryItem]
+	func history(filteredByGroupID: String) throws -> [HistoryItem]
+	func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryItem
+	func remove(_ entries: HistoryItem...) throws
+	func update(_ entries: HistoryItem...) throws
+	func remove(_ entries: [HistoryItem]) throws
+	func update(_ entries: [HistoryItem]) throws
 
 }
 
@@ -59,87 +59,87 @@ open class DefaultDataStore: DataStore {
 	public init() {		
 	}
 	
-	open func guide() throws -> [GuideEntry] {
+	open func guide() throws -> [GuideItem] {
 		fatalError("Not yet implemented")
 	}
 	
-	open func addToGuide(named: String, id: String, type: GuideEntryType, lastGrab: Date?) throws -> GuideEntry {
+	open func addToGuide(named: String, id: String, type: GuideItemType, lastGrab: Date?) throws -> GuideItem {
 		fatalError("Not yet implemented")
 	}
 	
-	open func remove(_ entries: GuideEntry...) throws {
+	open func remove(_ entries: GuideItem...) throws {
 		try remove(entries)
 	}
 
-	open func remove(_ entries: [GuideEntry]) throws {
+	open func remove(_ entries: [GuideItem]) throws {
 		fatalError("Not yet implemented")
 	}
 
-	open func update(_ entries: GuideEntry...) throws {
+	open func update(_ entries: GuideItem...) throws {
 		try update(entries)
 	}
 
-	open func update(_ entries: [GuideEntry]) throws {
+	open func update(_ entries: [GuideItem]) throws {
 		fatalError("Not yet implemented")
 	}
 
-	open func queue() throws -> [QueueEntry] {
+	open func queue() throws -> [QueueItem] {
 		fatalError("Not yet implemented")
 	}
 	
-	open func queue(filteredByID: String) throws -> [QueueEntry] {
+	open func queue(filteredByID: String) throws -> [QueueItem] {
 		fatalError("Not yet implemented")
 	}
 	
-	open func addToQueue(guid: String, id: String, name: String, status: QueueEntryStatus, score: Int) throws -> QueueEntry {
+	open func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int) throws -> QueueItem {
 		fatalError("Not yet implemented")
 	}
 	
-	open func remove(_ entries: QueueEntry...) throws {
+	open func remove(_ entries: QueueItem...) throws {
 		try remove(entries)
 	}
 
-	open func remove(_ entries: [QueueEntry]) throws {
+	open func remove(_ entries: [QueueItem]) throws {
 		fatalError("Not yet implemented")
 	}
 
-	open func update(_ entries: QueueEntry...) throws {
+	open func update(_ entries: QueueItem...) throws {
 		try update(entries)
 	}
 
-	open func update(_ entries: [QueueEntry]) throws {
+	open func update(_ entries: [QueueItem]) throws {
 		fatalError("Not yet implemented")
 	}
 
-	open func history() throws -> [HistoryEntry] {
+	open func history() throws -> [HistoryItem] {
 		fatalError("Not yet implemented")
 	}
 	
-	open func history(filteredByGUID: String) throws -> [HistoryEntry] {
+	open func history(filteredByGUID: String) throws -> [HistoryItem] {
 		fatalError("Not yet implemented")
 	}
 
-	open func history(filteredByGroupID: String) throws -> [HistoryEntry] {
+	open func history(filteredByGroupID: String) throws -> [HistoryItem] {
 		fatalError("Not yet implemented")
 	}
 
-	open func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryEntry {
+	open func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryItem {
 		fatalError("Not yet implemented")
 	}
 	
-	open func remove(_ entries: HistoryEntry...) throws {
+	open func remove(_ entries: HistoryItem...) throws {
 		try remove(entries)
 	}
 
-	open func remove(_ entries: [HistoryEntry]) throws {
+	open func remove(_ entries: [HistoryItem]) throws {
 		fatalError("Not yet implemented")
 	}
 
-	open func update(_ entries: HistoryEntry...) throws {
+	open func update(_ entries: HistoryItem...) throws {
 		try update(entries)
 	}
 
-	open func update(_ entries: [HistoryEntry]) throws {
+	open func update(_ entries: [HistoryItem]) throws {
 		fatalError("Not yet implemented")
 	}
 
