@@ -18,5 +18,6 @@ public protocol QueueItem {
 	var name: String {get set} // Name of the element, should be able to find this in the sabnzb queue
 	var status: QueueItemStatus {get set} // There should only be one active element per group
 	var score: Int {get set} // The score associated with the element
+  var link: String {get set} // The link to the NZB ... remember to remove the &amp;
 }
 
