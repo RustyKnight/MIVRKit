@@ -55,6 +55,9 @@ public class MutableDataStoreService {
 
 open class DefaultDataStore: DataStore {
 	
+	public init() {		
+	}
+	
 	open func guide() throws -> [GuideEntry] {
 		fatalError("Not yet implemented")
 	}
