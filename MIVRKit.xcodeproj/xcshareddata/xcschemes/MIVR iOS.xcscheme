@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7052F1CC1F6FC01C0038A4F8"
-               BuildableName = "MIVR.framework"
+               BuildableName = "MIVRKit.framework"
                BlueprintName = "MIVR iOS"
                ReferencedContainer = "container:MIVRKit.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7052F1CC1F6FC01C0038A4F8"
-            BuildableName = "MIVR.framework"
+            BuildableName = "MIVRKit.framework"
             BlueprintName = "MIVR iOS"
             ReferencedContainer = "container:MIVRKit.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7052F1CC1F6FC01C0038A4F8"
-            BuildableName = "MIVR.framework"
+            BuildableName = "MIVRKit.framework"
             BlueprintName = "MIVR iOS"
             ReferencedContainer = "container:MIVRKit.xcodeproj">
          </BuildableReference>

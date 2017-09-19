@@ -11,20 +11,20 @@ public protocol DataStore {
 
 	func guide() throws -> [GuideEntry]
 	func addToGuide(named: String, id: String, type: GuideEntryType, lastGrab: Date?) throws
-	func remove(guideEnrty: GuideEntry) throws
-	func update(guideEnrty: GuideEntry) throws
+	func remove(_ entries: GuideEntry...) throws
+	func update(_ entries: GuideEntry...) throws
 	
 	func queue() throws -> [QueueEntry]
 	func queue(filteredByID: String) throws -> [QueueEntry]
 	func addToQueue(guid: String, id: String, name: String, status: QueueEntryStatus, score: Int)
-	func remove(queueEntry: QueueEntry)
-	func update(queueEntry: QueueEntry)
+	func remove(_ entries: QueueEntry...)
+	func update(_ entries: QueueEntry...)
 	
 	func history() throws -> [HistoryEntry]
 	func history(filteredByGUID: String) -> [HistoryEntry]
 	func addToHistory(guid: String, ignored: Bool, score: Int)
-	func remove(historyEntry: HistoryEntry)
-	func update(historyEntry: HistoryEntry)
+	func remove(_ entries: HistoryEntry...)
+	func update(_ entries: HistoryEntry...)
 
 }
 
@@ -48,15 +48,31 @@ public class MutableDataStoreService {
 }
 
 class DefaultDataStore: DataStore {
+	func remove(_ entries: GuideEntry...) throws {
+		fatalError("Not yet implemeted")
+	}
+	
+	func update(_ entries: GuideEntry...) throws {
+		fatalError("Not yet implemeted")
+	}
+	
+	func remove(_ entries: QueueEntry...) {
+		fatalError("Not yet implemeted")
+	}
+	
+	func update(_ entries: QueueEntry...) {
+		fatalError("Not yet implemeted")
+	}
+	
+	func remove(_ entries: HistoryEntry...) {
+		fatalError("Not yet implemeted")
+	}
+	
+	func update(_ entries: HistoryEntry...) {
+		fatalError("Not yet implemeted")
+	}
+	
 	func addToHistory(guid: String, ignored: Bool, score: Int) {
-		fatalError("Not yet implemeted")
-	}
-	
-	func remove(historyEntry: HistoryEntry) {
-		fatalError("Not yet implemeted")
-	}
-	
-	func update(historyEntry: HistoryEntry) {
 		fatalError("Not yet implemeted")
 	}
 	
@@ -65,14 +81,6 @@ class DefaultDataStore: DataStore {
 	}
 	
 	func addToGuide(named: String, id: String, type: GuideEntryType, lastGrab: Date?) throws {
-		fatalError("Not yet implemeted")
-	}
-	
-	func remove(guideEnrty: GuideEntry) throws {
-		fatalError("Not yet implemeted")
-	}
-	
-	func update(guideEnrty: GuideEntry) throws {
 		fatalError("Not yet implemeted")
 	}
 	
@@ -85,14 +93,6 @@ class DefaultDataStore: DataStore {
 	}
 	
 	func addToQueue(guid: String, id: String, name: String, status: QueueEntryStatus, score: Int) {
-		fatalError("Not yet implemeted")
-	}
-	
-	func remove(queueEntry: QueueEntry) {
-		fatalError("Not yet implemeted")
-	}
-	
-	func update(queueEntry: QueueEntry) {
 		fatalError("Not yet implemeted")
 	}
 	
