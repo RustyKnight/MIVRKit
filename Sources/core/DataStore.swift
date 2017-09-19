@@ -54,85 +54,85 @@ public class MutableDataStoreService {
 }
 
 open class DefaultDataStore: DataStore {
-	public func guide() throws -> [GuideEntry] {
+	
+	open func guide() throws -> [GuideEntry] {
 		fatalError("Not yet implemented")
 	}
 	
-	public func addToGuide(named: String, id: String, type: GuideEntryType, lastGrab: Date?) throws {
+	open func addToGuide(named: String, id: String, type: GuideEntryType, lastGrab: Date?) throws {
 		fatalError("Not yet implemented")
 	}
 	
-	public func remove(_ entries: GuideEntry...) throws {
+	open func remove(_ entries: GuideEntry...) throws {
 		remove(entries)
 	}
 
-	public func remove(_ entries: [GuideEntry]) {
+	open func remove(_ entries: [GuideEntry]) {
 		fatalError("Not yet implemented")
 	}
 
-	public func update(_ entries: GuideEntry...) throws {
+	open func update(_ entries: GuideEntry...) throws {
 		try update(entries)
 	}
 
-	public func update(_ entries: [GuideEntry]) throws {
+	open func update(_ entries: [GuideEntry]) throws {
 		fatalError("Not yet implemented")
 	}
 
-	public func queue() throws -> [QueueEntry] {
+	open func queue() throws -> [QueueEntry] {
 		fatalError("Not yet implemented")
 	}
 	
-	public func queue(filteredByID: String) throws -> [QueueEntry] {
+	open func queue(filteredByID: String) throws -> [QueueEntry] {
 		fatalError("Not yet implemented")
 	}
 	
-	public func addToQueue(guid: String, id: String, name: String, status: QueueEntryStatus, score: Int) {
+	open func addToQueue(guid: String, id: String, name: String, status: QueueEntryStatus, score: Int) {
 		fatalError("Not yet implemented")
 	}
 	
-	public func remove(_ entries: QueueEntry...) {
+	open func remove(_ entries: QueueEntry...) {
 		remove(entries)
 	}
 
-	public func remove(_ entries: [QueueEntry]) {
+	open func remove(_ entries: [QueueEntry]) {
 		fatalError("Not yet implemented")
 	}
 
-	public func update(_ entries: QueueEntry...) {
+	open func update(_ entries: QueueEntry...) {
 		update(entries)
 	}
 
-	public func update(_ entries: [QueueEntry]) {
+	open func update(_ entries: [QueueEntry]) {
 		fatalError("Not yet implemented")
 	}
 
-	public func history() throws -> [HistoryEntry] {
+	open func history() throws -> [HistoryEntry] {
 		fatalError("Not yet implemented")
 	}
 	
-	public func history(filteredByGUID: String) -> [HistoryEntry] {
+	open func history(filteredByGUID: String) -> [HistoryEntry] {
 		fatalError("Not yet implemented")
 	}
 	
-	public func addToHistory(guid: String, ignored: Bool, score: Int) {
+	open func addToHistory(guid: String, ignored: Bool, score: Int) {
 		fatalError("Not yet implemented")
 	}
 	
-	public func remove(_ entries: HistoryEntry...) {
+	open func remove(_ entries: HistoryEntry...) {
 		remove(entries)
 	}
 
-	public func remove(_ entries: [HistoryEntry]) {
+	open func remove(_ entries: [HistoryEntry]) {
 		fatalError("Not yet implemented")
 	}
 
-	public func update(_ entries: HistoryEntry...) {
+	open func update(_ entries: HistoryEntry...) {
 		update(entries)
 	}
 
-	public func update(_ entries: [HistoryEntry]) {
+	open func update(_ entries: [HistoryEntry]) {
 		fatalError("Not yet implemented")
 	}
 
-	
 }
