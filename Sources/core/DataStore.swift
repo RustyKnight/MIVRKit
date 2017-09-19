@@ -18,7 +18,7 @@ public protocol DataStore {
 
 	func queue() throws -> [QueueItem]
 	func queue(filteredByID: String) throws -> [QueueItem]
-	func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int) throws -> QueueItem
+  func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem
 	func remove(_ entries: QueueItem...) throws
 	func update(_ entries: QueueItem...) throws
 	func remove(_ entries: [QueueItem]) throws
@@ -27,7 +27,7 @@ public protocol DataStore {
 	func history() throws -> [HistoryItem]
 	func history(filteredByGUID: String) throws -> [HistoryItem]
 	func history(filteredByGroupID: String) throws -> [HistoryItem]
-	func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryItem
+  func addToHistory(groupID: String, guid: String, ignored: Bool, score: Int) throws -> HistoryItem
 	func remove(_ entries: HistoryItem...) throws
 	func update(_ entries: HistoryItem...) throws
 	func remove(_ entries: [HistoryItem]) throws
@@ -91,7 +91,7 @@ open class DefaultDataStore: DataStore {
 		fatalError("Not yet implemented")
 	}
 	
-	open func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int) throws -> QueueItem {
+  open func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem {
 		fatalError("Not yet implemented")
 	}
 	
@@ -123,7 +123,7 @@ open class DefaultDataStore: DataStore {
 		fatalError("Not yet implemented")
 	}
 
-	open func addToHistory(guid: String, ignored: Bool, score: Int) throws -> HistoryItem {
+  open func addToHistory(groupID: String, guid: String, ignored: Bool, score: Int) throws -> HistoryItem {
 		fatalError("Not yet implemented")
 	}
 	
