@@ -53,7 +53,7 @@ public class MutableDataStoreService {
 
 }
 
-public class DefaultDataStore: DataStore {
+open class DefaultDataStore: DataStore {
 	public func guide() throws -> [GuideEntry] {
 		fatalError("Not yet implemented")
 	}
