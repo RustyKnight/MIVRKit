@@ -7,24 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12EF7DCC1F708B71008A7E6A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCB1F708B71008A7E6A /* Queue.swift */; };
+		12EF7DCD1F708B80008A7E6A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCB1F708B71008A7E6A /* Queue.swift */; };
+		12EF7DCE1F708B84008A7E6A /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F2101F6FCFDB0038A4F8 /* Guide.swift */; };
+		12EF7DD01F708B91008A7E6A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCF1F708B91008A7E6A /* History.swift */; };
+		12EF7DD11F708B9E008A7E6A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCF1F708B91008A7E6A /* History.swift */; };
 		7052F1C41F6FBFF70038A4F8 /* MIVR.h in Headers */ = {isa = PBXBuildFile; fileRef = 7052F1C21F6FBFF70038A4F8 /* MIVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7052F1D71F6FC1980038A4F8 /* MIVR.h in Headers */ = {isa = PBXBuildFile; fileRef = 7052F1C21F6FBFF70038A4F8 /* MIVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7052F1DA1F6FC1F10038A4F8 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1D91F6FC1F10038A4F8 /* Database.swift */; };
 		7052F1DB1F6FC1F90038A4F8 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1D91F6FC1F10038A4F8 /* Database.swift */; };
-		7052F1E31F6FC69E0038A4F8 /* MIVR_MacOS_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1E21F6FC69E0038A4F8 /* MIVR_MacOS_Tests.swift */; };
 		7052F1E51F6FC69E0038A4F8 /* MIVR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1BF1F6FBFF70038A4F8 /* MIVR.framework */; };
-		7052F1F21F6FC6B00038A4F8 /* MIVR_iOS_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1F11F6FC6B00038A4F8 /* MIVR_iOS_Tests.swift */; };
 		7052F1F41F6FC6B00038A4F8 /* MIVR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1CD1F6FC01C0038A4F8 /* MIVR.framework */; };
 		7052F1FF1F6FC7D90038A4F8 /* NZBKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FB1F6FC7D90038A4F8 /* NZBKit.framework */; };
 		7052F2001F6FC7D90038A4F8 /* KZSimpleLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FC1F6FC7D90038A4F8 /* KZSimpleLogger.framework */; };
-		7052F2011F6FC7D90038A4F8 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FD1F6FC7D90038A4F8 /* SQLite.framework */; };
 		7052F2021F6FC7D90038A4F8 /* Hydra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FE1F6FC7D90038A4F8 /* Hydra.framework */; };
 		7052F2071F6FC7E20038A4F8 /* NZBKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F2031F6FC7E20038A4F8 /* NZBKit.framework */; };
-		7052F2081F6FC7E20038A4F8 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F2041F6FC7E20038A4F8 /* SQLite.framework */; };
 		7052F2091F6FC7E20038A4F8 /* KZSimpleLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F2051F6FC7E20038A4F8 /* KZSimpleLogger.framework */; };
 		7052F20A1F6FC7E20038A4F8 /* Hydra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F2061F6FC7E20038A4F8 /* Hydra.framework */; };
-		7052F20E1F6FCA450038A4F8 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F20D1F6FCA450038A4F8 /* TestDatabase.swift */; };
-		7052F20F1F6FCAEA0038A4F8 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F20D1F6FCA450038A4F8 /* TestDatabase.swift */; };
 		7052F2111F6FCFDB0038A4F8 /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F2101F6FCFDB0038A4F8 /* Guide.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12EF7DCB1F708B71008A7E6A /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		12EF7DCF1F708B91008A7E6A /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		7052F1BF1F6FBFF70038A4F8 /* MIVR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIVR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7052F1C21F6FBFF70038A4F8 /* MIVR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIVR.h; sourceTree = "<group>"; };
 		7052F1C31F6FBFF70038A4F8 /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
@@ -53,10 +54,8 @@
 		7052F1D01F6FC01C0038A4F8 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		7052F1D91F6FC1F10038A4F8 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		7052F1E01F6FC69D0038A4F8 /* MIVR MacOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MIVR MacOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7052F1E21F6FC69E0038A4F8 /* MIVR_MacOS_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIVR_MacOS_Tests.swift; sourceTree = "<group>"; };
 		7052F1E41F6FC69E0038A4F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7052F1EF1F6FC6B00038A4F8 /* MIVR iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MIVR iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7052F1F11F6FC6B00038A4F8 /* MIVR_iOS_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIVR_iOS_Tests.swift; sourceTree = "<group>"; };
 		7052F1F31F6FC6B00038A4F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7052F1FB1F6FC7D90038A4F8 /* NZBKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NZBKit.framework; path = Carthage/Build/iOS/NZBKit.framework; sourceTree = "<group>"; };
 		7052F1FC1F6FC7D90038A4F8 /* KZSimpleLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KZSimpleLogger.framework; path = Carthage/Build/iOS/KZSimpleLogger.framework; sourceTree = "<group>"; };
@@ -66,7 +65,6 @@
 		7052F2041F6FC7E20038A4F8 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/Mac/SQLite.framework; sourceTree = "<group>"; };
 		7052F2051F6FC7E20038A4F8 /* KZSimpleLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KZSimpleLogger.framework; path = Carthage/Build/Mac/KZSimpleLogger.framework; sourceTree = "<group>"; };
 		7052F2061F6FC7E20038A4F8 /* Hydra.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hydra.framework; path = Carthage/Build/Mac/Hydra.framework; sourceTree = "<group>"; };
-		7052F20D1F6FCA450038A4F8 /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
 		7052F2101F6FCFDB0038A4F8 /* Guide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guide.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,7 +74,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7052F2071F6FC7E20038A4F8 /* NZBKit.framework in Frameworks */,
-				7052F2081F6FC7E20038A4F8 /* SQLite.framework in Frameworks */,
 				7052F2091F6FC7E20038A4F8 /* KZSimpleLogger.framework in Frameworks */,
 				7052F20A1F6FC7E20038A4F8 /* Hydra.framework in Frameworks */,
 			);
@@ -88,7 +85,6 @@
 			files = (
 				7052F1FF1F6FC7D90038A4F8 /* NZBKit.framework in Frameworks */,
 				7052F2001F6FC7D90038A4F8 /* KZSimpleLogger.framework in Frameworks */,
-				7052F2011F6FC7D90038A4F8 /* SQLite.framework in Frameworks */,
 				7052F2021F6FC7D90038A4F8 /* Hydra.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +146,8 @@
 			children = (
 				7052F1D91F6FC1F10038A4F8 /* Database.swift */,
 				7052F2101F6FCFDB0038A4F8 /* Guide.swift */,
+				12EF7DCB1F708B71008A7E6A /* Queue.swift */,
+				12EF7DCF1F708B91008A7E6A /* History.swift */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -157,9 +155,7 @@
 		7052F1E11F6FC69E0038A4F8 /* MIVR MacOS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				7052F1E21F6FC69E0038A4F8 /* MIVR_MacOS_Tests.swift */,
 				7052F1E41F6FC69E0038A4F8 /* Info.plist */,
-				7052F20D1F6FCA450038A4F8 /* TestDatabase.swift */,
 			);
 			path = "MIVR MacOS Tests";
 			sourceTree = "<group>";
@@ -167,7 +163,6 @@
 		7052F1F01F6FC6B00038A4F8 /* MIVR iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				7052F1F11F6FC6B00038A4F8 /* MIVR_iOS_Tests.swift */,
 				7052F1F31F6FC6B00038A4F8 /* Info.plist */,
 			);
 			path = "MIVR iOS Tests";
@@ -389,6 +384,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7052F2111F6FCFDB0038A4F8 /* Guide.swift in Sources */,
+				12EF7DCC1F708B71008A7E6A /* Queue.swift in Sources */,
+				12EF7DD01F708B91008A7E6A /* History.swift in Sources */,
 				7052F1DA1F6FC1F10038A4F8 /* Database.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,7 +394,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12EF7DCE1F708B84008A7E6A /* Guide.swift in Sources */,
 				7052F1DB1F6FC1F90038A4F8 /* Database.swift in Sources */,
+				12EF7DD11F708B9E008A7E6A /* History.swift in Sources */,
+				12EF7DCD1F708B80008A7E6A /* Queue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,8 +405,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7052F20E1F6FCA450038A4F8 /* TestDatabase.swift in Sources */,
-				7052F1E31F6FC69E0038A4F8 /* MIVR_MacOS_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,8 +412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7052F20F1F6FCAEA0038A4F8 /* TestDatabase.swift in Sources */,
-				7052F1F21F6FC6B00038A4F8 /* MIVR_iOS_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
