@@ -13,9 +13,9 @@ public enum GuideEntryType: Int {
 }
 
 public protocol GuideEntry {
-	var name: String {get}
-	var id: String {get} // tvdbid/imdbid
-	var type: GuideEntryType {get}
-	var lastGrab: Date? {get} // The date/time of the last time this achieved a grab (downloaded something)
+	var name: String {get set}
+	var id: String {get set} // tvdbid/imdbid
+	var type: GuideEntryType {get set}
+	var lastGrab: Date? {get set} // The date/time of the last time this achieved a grab (downloaded something)
 }
 
