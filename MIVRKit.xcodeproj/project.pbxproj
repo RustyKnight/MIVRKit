@@ -12,6 +12,8 @@
 		12EF7DCE1F708B84008A7E6A /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F2101F6FCFDB0038A4F8 /* Guide.swift */; };
 		12EF7DD01F708B91008A7E6A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCF1F708B91008A7E6A /* History.swift */; };
 		12EF7DD11F708B9E008A7E6A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCF1F708B91008A7E6A /* History.swift */; };
+		12FF06381F70FFBE00FCE584 /* MIVRUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF06371F70FFBE00FCE584 /* MIVRUtilities.swift */; };
+		12FF06391F7102E600FCE584 /* MIVRUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF06371F70FFBE00FCE584 /* MIVRUtilities.swift */; };
 		7052F1C41F6FBFF70038A4F8 /* MIVR.h in Headers */ = {isa = PBXBuildFile; fileRef = 7052F1C21F6FBFF70038A4F8 /* MIVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7052F1D71F6FC1980038A4F8 /* MIVR.h in Headers */ = {isa = PBXBuildFile; fileRef = 7052F1C21F6FBFF70038A4F8 /* MIVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7052F1DA1F6FC1F10038A4F8 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1D91F6FC1F10038A4F8 /* DataStore.swift */; };
@@ -47,6 +49,7 @@
 /* Begin PBXFileReference section */
 		12EF7DCB1F708B71008A7E6A /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		12EF7DCF1F708B91008A7E6A /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		12FF06371F70FFBE00FCE584 /* MIVRUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIVRUtilities.swift; sourceTree = "<group>"; };
 		7052F1BF1F6FBFF70038A4F8 /* MIVRKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIVRKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7052F1C21F6FBFF70038A4F8 /* MIVR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIVR.h; sourceTree = "<group>"; };
 		7052F1C31F6FBFF70038A4F8 /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 				7052F2101F6FCFDB0038A4F8 /* Guide.swift */,
 				12EF7DCB1F708B71008A7E6A /* Queue.swift */,
 				12EF7DCF1F708B91008A7E6A /* History.swift */,
+				12FF06371F70FFBE00FCE584 /* MIVRUtilities.swift */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -384,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7052F2111F6FCFDB0038A4F8 /* Guide.swift in Sources */,
+				12FF06381F70FFBE00FCE584 /* MIVRUtilities.swift in Sources */,
 				12EF7DCC1F708B71008A7E6A /* Queue.swift in Sources */,
 				12EF7DD01F708B91008A7E6A /* History.swift in Sources */,
 				7052F1DA1F6FC1F10038A4F8 /* DataStore.swift in Sources */,
@@ -395,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12EF7DCE1F708B84008A7E6A /* Guide.swift in Sources */,
+				12FF06391F7102E600FCE584 /* MIVRUtilities.swift in Sources */,
 				7052F1DB1F6FC1F90038A4F8 /* DataStore.swift in Sources */,
 				12EF7DD11F708B9E008A7E6A /* History.swift in Sources */,
 				12EF7DCD1F708B80008A7E6A /* Queue.swift in Sources */,
