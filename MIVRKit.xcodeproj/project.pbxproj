@@ -16,8 +16,8 @@
 		7052F1D71F6FC1980038A4F8 /* MIVR.h in Headers */ = {isa = PBXBuildFile; fileRef = 7052F1C21F6FBFF70038A4F8 /* MIVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7052F1DA1F6FC1F10038A4F8 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1D91F6FC1F10038A4F8 /* Database.swift */; };
 		7052F1DB1F6FC1F90038A4F8 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F1D91F6FC1F10038A4F8 /* Database.swift */; };
-		7052F1E51F6FC69E0038A4F8 /* MIVR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1BF1F6FBFF70038A4F8 /* MIVR.framework */; };
-		7052F1F41F6FC6B00038A4F8 /* MIVR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1CD1F6FC01C0038A4F8 /* MIVR.framework */; };
+		7052F1E51F6FC69E0038A4F8 /* MIVRKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1BF1F6FBFF70038A4F8 /* MIVRKit.framework */; };
+		7052F1F41F6FC6B00038A4F8 /* MIVRKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1CD1F6FC01C0038A4F8 /* MIVRKit.framework */; };
 		7052F1FF1F6FC7D90038A4F8 /* NZBKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FB1F6FC7D90038A4F8 /* NZBKit.framework */; };
 		7052F2001F6FC7D90038A4F8 /* KZSimpleLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FC1F6FC7D90038A4F8 /* KZSimpleLogger.framework */; };
 		7052F2021F6FC7D90038A4F8 /* Hydra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052F1FE1F6FC7D90038A4F8 /* Hydra.framework */; };
@@ -47,10 +47,10 @@
 /* Begin PBXFileReference section */
 		12EF7DCB1F708B71008A7E6A /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		12EF7DCF1F708B91008A7E6A /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		7052F1BF1F6FBFF70038A4F8 /* MIVR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIVR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7052F1BF1F6FBFF70038A4F8 /* MIVRKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIVRKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7052F1C21F6FBFF70038A4F8 /* MIVR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIVR.h; sourceTree = "<group>"; };
 		7052F1C31F6FBFF70038A4F8 /* Info-MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MacOS.plist"; sourceTree = "<group>"; };
-		7052F1CD1F6FC01C0038A4F8 /* MIVR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIVR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7052F1CD1F6FC01C0038A4F8 /* MIVRKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIVRKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7052F1D01F6FC01C0038A4F8 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		7052F1D91F6FC1F10038A4F8 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		7052F1E01F6FC69D0038A4F8 /* MIVR MacOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MIVR MacOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7052F1E51F6FC69E0038A4F8 /* MIVR.framework in Frameworks */,
+				7052F1E51F6FC69E0038A4F8 /* MIVRKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7052F1F41F6FC6B00038A4F8 /* MIVR.framework in Frameworks */,
+				7052F1F41F6FC6B00038A4F8 /* MIVRKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,8 +122,8 @@
 		7052F1C01F6FBFF70038A4F8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7052F1BF1F6FBFF70038A4F8 /* MIVR.framework */,
-				7052F1CD1F6FC01C0038A4F8 /* MIVR.framework */,
+				7052F1BF1F6FBFF70038A4F8 /* MIVRKit.framework */,
+				7052F1CD1F6FC01C0038A4F8 /* MIVRKit.framework */,
 				7052F1E01F6FC69D0038A4F8 /* MIVR MacOS Tests.xctest */,
 				7052F1EF1F6FC6B00038A4F8 /* MIVR iOS Tests.xctest */,
 			);
@@ -220,7 +220,7 @@
 			);
 			name = "MIVR MacOS";
 			productName = MIVR;
-			productReference = 7052F1BF1F6FBFF70038A4F8 /* MIVR.framework */;
+			productReference = 7052F1BF1F6FBFF70038A4F8 /* MIVRKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7052F1CC1F6FC01C0038A4F8 /* MIVR iOS */ = {
@@ -239,7 +239,7 @@
 			);
 			name = "MIVR iOS";
 			productName = "MIVR iOS";
-			productReference = 7052F1CD1F6FC01C0038A4F8 /* MIVR.framework */;
+			productReference = 7052F1CD1F6FC01C0038A4F8 /* MIVRKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7052F1DF1F6FC69D0038A4F8 /* MIVR MacOS Tests */ = {
@@ -511,7 +511,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.kaizen.MIVR;
-				PRODUCT_NAME = MIVR;
+				PRODUCT_NAME = MIVRKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -583,7 +583,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.kaizen.MIVR;
-				PRODUCT_NAME = MIVR;
+				PRODUCT_NAME = MIVRKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -659,7 +659,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kaizen.MIVR-iOS";
-				PRODUCT_NAME = MIVR;
+				PRODUCT_NAME = MIVRKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -730,7 +730,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kaizen.MIVR-iOS";
-				PRODUCT_NAME = MIVR;
+				PRODUCT_NAME = MIVRKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
