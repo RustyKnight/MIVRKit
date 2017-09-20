@@ -18,7 +18,7 @@ enqueued are baically the same for both movies and tv series/episodes, it's just
 are contained and managed in (slightly) different way at the top level
 */
 
-public extension NZBTVEpisodeGroup {
+extension NZBTVEpisodeGroup {
 	
 	var groupID: String {
 		return "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
@@ -26,53 +26,49 @@ public extension NZBTVEpisodeGroup {
 	
 }
 
-public protocol QueuingReport {
-	var group: QueuableGroup {get}
-	var queueItems: [QueueItem] {get}
+extension NZBMovie {
+  
+  var groupID: String {
+    return imdbID
+  }
+  
 }
 
-struct DefaultQueuingReport: QueuingReport {
-	var group: QueuableGroup
-	var queueItems: [QueueItem]
+public protocol QueuedItems {
+	var group: GrabbableGroup {get}
+	var items: [QueueItem] {get}
 }
 
-/*
-This is here because Swift has issues with supporting generics in a pratical way that
-would remove the need for having a bunch of concrete classes every where, that would
-change the entire API to support it
-*/
-public struct GrabbableItem {
-	let item: NZBItem
-	
-	var guid: String {
-		return item.guid
-	}
-	
-	var score: Int {
-		return item.score
-	}
-	
-	var link: String {
-		return item.link
-	}
+public protocol GrabbableItem {
+  var guid: String {get}
+  var score: Int {get}
+  var link: String {get}
 }
 
-public struct QueuableGroup {
-	
-	public let name: String
-	public let groupID: String
-	public let items: [GrabbableItem]
-	
+public protocol GrabbableGroup {
+  var name: String {get}
+  var groupID: String {get}
+  var items: [GrabbableItem] {get}
+}
+
+struct DefaultGrabbableItem: GrabbableItem {
+  let guid: String
+  let score: Int
+  let link: String
+}
+
+struct DefaultQueuableGroup: GrabbableGroup {
+  let name: String
+  let groupID: String
+  let items: [GrabbableItem]
+}
+
+struct DefaultQueuedItems: QueuedItems {
+  let group: GrabbableGroup
+  let items: [QueueItem]
 }
 
 public struct MIVRUtilities {
-//
-//	static func itemsToGrab(from request: NZBTV) throws {
-//    for var group in request.episodeGroups {
-//      let items = try itemsToGrab(from: group)
-//			group.items = items
-//    }
-//	}
 	
 	static func itemsToGrab(from items: [GrabbableItem], withGroupID groupID: String) throws -> [GrabbableItem] {
 		var copyOfItems: [GrabbableItem] = []
@@ -110,8 +106,10 @@ public struct MIVRUtilities {
 		return copyOfItems.sorted(by: { $0.score > $1.score })
 	}
 	
-	static func itemsToGrab(from movie: NZBMovie) throws -> [NZBMovieItem] {
-		return try itemsToGrab(from: movie.items.map { GrabbableItem(item: $0) }, withGroupID: movie.imdbID).map { $0.item as! NZBMovieItem }
+	static func itemsToGrab(from movie: NZBMovie) throws -> GrabbableGroup {
+    let items = movie.items.map { DefaultGrabbableItem(guid: $0.guid, score: $0.score, link: $0.link) }
+		let grabbableItems = try itemsToGrab(from: items, withGroupID: movie.imdbID)
+    return DefaultQueuableGroup(name: movie.name, groupID: movie.groupID, items: grabbableItems)
 	}
 	
 	/**
@@ -121,12 +119,15 @@ public struct MIVRUtilities {
 	The items to grab and returned in descending order of their score, so the top most item
 	is the preferred item
 	*/
-	static func itemsToGrab(from group: NZBTVEpisodeGroup) throws -> [NZBTVItem] {
-		return try itemsToGrab(from: group.items.map { GrabbableItem(item: $0) }, withGroupID: group.groupID).map { $0.item as! NZBTVItem }
+	static func filterGrabbableItems(from group: NZBTVEpisodeGroup) throws -> GrabbableGroup {
+    let items = group.items.map { DefaultGrabbableItem(guid: $0.guid, score: $0.score, link: $0.link) }
+		let grabbableItems = try itemsToGrab(from: items, withGroupID: group.groupID)
+    
+    return DefaultQueuableGroup(name: group.name, groupID: group.groupID, items: grabbableItems)
   }
 
 	
-	static func queue(_ group: QueuableGroup) throws -> QueuingReport {
+	static func queueItems(from group: GrabbableGroup) throws -> QueuedItems {
 		var queueItems: [QueueItem] = []
 		let grabItems = try itemsToGrab(from: group.items, withGroupID: group.groupID)
 
@@ -143,7 +144,7 @@ public struct MIVRUtilities {
 			}
 		}
 
-		let report = DefaultQueuingReport(group: group, queueItems: queueItems)
+		let report = DefaultQueuedItems(group: group, items: queueItems)
 		return report
 	}
 	
@@ -156,34 +157,35 @@ public struct MIVRUtilities {
 	The function will return a report detailing the items that were queued for each episode group.
 	If a group does queue any items, then no report is created for that group
 	*/
-	public static func queueItems(from request: NZBTV) throws -> [QueuingReport] {
-		var reports: [QueuingReport] = []
-		for group in request.episodeGroups {
-			let report = try queueItems(from: group)
-			guard report.queueItems.count > 0 else {
-				continue
-			}
-			reports.append(report)
-		}
-		return reports
-	}
+//  public static func queueItems(from request: NZBTV) throws -> [QueuedItems] {
+//    fatalError()
+////    var reports: [QueuedItems] = []
+////    for group in request.episodeGroups {
+////      let report = try queueItems(from: group)
+////      guard report.queueItems.count > 0 else {
+////        continue
+////      }
+////      reports.append(report)
+////    }
+////    return reports
+//  }
 
 	/**
 	Queue's the items from a episode group which should be grabbed, if any.
 	
 	Items are queued in a single transaction, so either all the items will be queued or none will
 	*/
-	public static func queueItems(from group: NZBTVEpisodeGroup) throws -> QueuingReport {
-		let items = group.items.map { GrabbableItem(item: $0) }
-		let queuableGroup = QueuableGroup(name: group.name, groupID: group.groupID, items: items)
-		
-		return try queue(queuableGroup)
-	}
-	
-	public static func queueItems(from movie: NZBMovie) throws -> QueuingReport {
-		let items = movie.items.map { GrabbableItem(item: $0) }
-		let group = QueuableGroup(name: movie.name, groupID: movie.imdbID, items: items)
-		return try queue(group)
-	}
+//  public static func queueItems(from group: NZBTVEpisodeGroup) throws -> QueuedItems {
+//    let items = group.items.map { DefaultGrabbableItem(guid: $0.guid, score: $0.score, link: $0.link) }
+//    let queuableGroup = DefaultQueuableGroup(name: group.name, groupID: group.groupID, items: items)
+//    
+//    return try queue(queuableGroup)
+//  }
+//  
+//  public static func queueItems(from movie: NZBMovie) throws -> QueuedItems {
+//    let items = movie.items.map { DefaultGrabbableItem(guid: $0.guid, score: $0.score, link: $0.link) }
+//    let group = DefaultQueuableGroup(name: movie.name, groupID: movie.imdbID, items: items)
+//    return try queue(group)
+//  }
 	
 }
