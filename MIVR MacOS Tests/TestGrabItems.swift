@@ -76,18 +76,18 @@ class TestGrabItems: XCTestCase {
 		do {
 			try setupHistory(groupID: groupID)
 			
-			let group = makeNZBTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
-			let itemsToGrab: [NZBTVItem] = try MIVRUtilities.itemsToGrab(from: group)
+      let group: NZBTVEpisodeGroup = makeNZBTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+      let itemsToGrab = try MIVRUtilities.filterGrabbableItems(from: group)
 			
-			print("Grabbing \(itemsToGrab.count)")
-			itemsToGrab.forEach({ (item) in
+			print("Grabbing \(itemsToGrab.items.count)")
+			itemsToGrab.items.forEach({ (item) in
 				print("Grab \(item.guid)")
 			})
 			
-			XCTAssertTrue(itemsToGrab.count == 3, "Expecting 3 items to grab, got \(itemsToGrab.count)")
-			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "10"} ), "Expecting item with GUID of 10")
-			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "12"} ), "Expecting item with GUID of 12")
-			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "13"} ), "Expecting item with GUID of 13")
+			XCTAssertTrue(itemsToGrab.items.count == 3, "Expecting 3 items to grab, got \(itemsToGrab.items.count)")
+			XCTAssertTrue(itemsToGrab.items.contains(where: { $0.guid == "10"} ), "Expecting item with GUID of 10")
+			XCTAssertTrue(itemsToGrab.items.contains(where: { $0.guid == "12"} ), "Expecting item with GUID of 12")
+			XCTAssertTrue(itemsToGrab.items.contains(where: { $0.guid == "13"} ), "Expecting item with GUID of 13")
 			
 			
 			
@@ -97,38 +97,43 @@ class TestGrabItems: XCTestCase {
 	}
 	
 	public func testQueueItems() {
-		TestUtilities.setupDataStore()
-		
-		let title = "Awesome TV show"
-		let tvdbID = 1234;
-		let season = 1
-		let episode = 1
-		
-		let groupID = "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
-		
-		do {
-			try setupHistory(groupID: groupID)
-			
-			let series = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
-			
-			let reports = try MIVRUtilities.queueItems(from: series)
-			print("Report count = \(reports.count)")
-			XCTAssert(reports.count == 1, "Should have one report group")
-			print("Queued items = \(reports[0].queueItems.count)")
-			XCTAssert(reports[0].queueItems.count == 3, "Should have 3 queued items")
-			
-			let queuedItems = try DataStoreService.shared.queue(filteredByGroupID: groupID)
-			
-			XCTAssert(queuedItems.contains(where: { $0.guid == "10" }), "Expecting item 10")
-			XCTAssert(queuedItems.contains(where: { $0.guid == "12" }), "Expecting item 12")
-			XCTAssert(queuedItems.contains(where: { $0.guid == "13" }), "Expecting item 13")
-			
-			queuedItems.forEach({ (item) in
-				print("\(item.groupID); \(item.guid); \(item.name)")
-			})
-		} catch let error {
-			XCTFail("\(error)")
-		}
+    TestUtilities.setupDataStore()
+    
+    let title = "Awesome TV show"
+    let tvdbID = 1234;
+    let season = 1
+    let episode = 1
+    
+    let groupID = "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
+    
+    do {
+      try setupHistory(groupID: groupID)
+      
+      let series: NZBTV = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+      var grabbles: [GrabbableGroup] = []
+      for group in series.episodeGroups {
+        grabbles.append(try MIVRUtilities.filterGrabbableItems(from: group))
+      }
+      
+      XCTAssert(grabbles.count == 1, "Expecting one grabbable group got \(grabbles.count)")
+      
+      let queuedGroup = try MIVRUtilities.queueItems(from: grabbles[0])
+
+      print("Queued items = \(queuedGroup.items.count)")
+      XCTAssert(queuedGroup.items.count == 3, "Should have 3 queued items")
+
+      let queuedItems = try DataStoreService.shared.queue(filteredByGroupID: groupID)
+
+      XCTAssert(queuedItems.contains(where: { $0.guid == "10" }), "Expecting item 10")
+      XCTAssert(queuedItems.contains(where: { $0.guid == "12" }), "Expecting item 12")
+      XCTAssert(queuedItems.contains(where: { $0.guid == "13" }), "Expecting item 13")
+
+      queuedItems.forEach({ (item) in
+        print("\(item.groupID); \(item.guid); \(item.name)")
+      })
+    } catch let error {
+      XCTFail("\(error)")
+    }
 	}
 	
 }

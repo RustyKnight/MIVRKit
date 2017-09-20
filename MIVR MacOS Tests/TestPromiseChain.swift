@@ -34,15 +34,15 @@ class TestPromiseChain: XCTestCase {
 				named: "Doctor Who (2005)",
 				withTVDBID: 76107,
 				withAPIKey: "952a3d058eb3db5fef69436419641c66",
-				fromURL: "https://api.nzbgeek.info/api").then { (reports: [QueuingReport]) in
+				fromURL: "https://api.nzbgeek.info/api").then { (reports: [QueuedItems]) in
 			
-					try reports.forEach({ (report) in
-						print("\(report.group)")
-						print("  Enqueued \(report.queueItems.count)")
-						
-						let queued = try DataStoreService.shared.queue(filteredByGroupID: report.group.groupID)
-						print(" Queued \(queued.count)")
-					})
+//          try reports.forEach({ (report) in
+//            print("\(report.group)")
+//            print("  Enqueued \(report.queueItems.count)")
+//            
+//            let queued = try DataStoreService.shared.queue(filteredByGroupID: report.group.groupID)
+//            print(" Queued \(queued.count)")
+//          })
 					
 			}.always {
 					exp.fulfill()

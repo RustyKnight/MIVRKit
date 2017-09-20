@@ -11,7 +11,7 @@ import Hydra
 
 public struct MIVRFactory {
 	
-	public static func queueTVSeriesItems(named name: String, withTVDBID tvdbID: Int, withAPIKey apiKey: String, fromURL url: String, maxAge: Int? = nil) throws -> Promise<[QueuedItems]> {
+	public static func grabTVSeries(named name: String, withTVDBID tvdbID: Int, withAPIKey apiKey: String, fromURL url: String, maxAge: Int? = nil) throws -> Promise<[QueuedItems]> {
 		return try NZBFactory.nzbForTVSeries(named: name, withTVDBID: tvdbID, withAPIKey: apiKey, fromURL: url, maxAge: maxAge).then({ (nzbTV: NZBTV) -> Promise<[GrabbableGroup]> in
 			return MIVRFactory.promiseToFilterGrabbableItems(from: nzbTV)
     }).then(in: nzbPromiseContext, { (groups: [GrabbableGroup]) -> Promise<[QueuedItems]> in
@@ -19,7 +19,7 @@ public struct MIVRFactory {
     })
 	}
 
-	public static func queueMovieItems(named name: String, withIMDBID imdbID: String, withAPIKey apiKey: String, fromURL url: String, maxAge: Int? = nil) throws -> Promise<QueuedItems> {
+	public static func grabMovies(named name: String, withIMDBID imdbID: String, withAPIKey apiKey: String, fromURL url: String, maxAge: Int? = nil) throws -> Promise<QueuedItems> {
 		return try NZBFactory.nzbForMovie(named: name, withIMDBID: imdbID, withAPIKey: apiKey, fromURL: url, maxAge: maxAge).then({ (movie: NZBMovie) -> Promise<GrabbableGroup> in
 			return MIVRFactory.promiseToFilterGrabbableItems(from: movie)
     }).then(in: nzbPromiseContext, { (group: GrabbableGroup) -> Promise<QueuedItems> in
