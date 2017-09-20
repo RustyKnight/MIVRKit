@@ -11,7 +11,7 @@ import Hydra
 
 public extension TVEpisodeGroup {
 	
-	var groupKey: String {
+	var groupID: String {
 		return "\(tvdbID)-S\(season)E\(episode)"
 	}
 	
@@ -27,6 +27,23 @@ struct DefaultQueuingReport: QueuingReport {
 	var queueItems: [QueueItem]
 }
 
+/*
+This is here because Swift has issues with supporting generics in a pratical way that
+would remove the need for having a bunch of concrete classes every where, that would
+change the entire API to support it
+*/
+struct Grabbable {
+	let item: NZBItem
+	
+	var guid: String {
+		return item.guid
+	}
+	
+	var score: Int {
+		return item.score
+	}
+}
+
 public struct MIVRUtilities {
 //
 //	static func itemsToGrab(from request: NZBTV) throws {
@@ -36,6 +53,44 @@ public struct MIVRUtilities {
 //    }
 //	}
 	
+	static func itemsToGrab(from items: [Grabbable], withGroupID groupID: String) throws -> [Grabbable] {
+		var copyOfItems: [Grabbable] = []
+		copyOfItems.append(contentsOf: items)
+
+		// Get the history for the group
+		let queued = try DataStoreService.shared.queue(filteredByGroupID: groupID).map { $0.guid }
+		let history = try DataStoreService.shared.history(filteredByGroupID: groupID)
+		// Get the ignored items
+		let ignoredItems = history.filter { $0.isIgnored }.map { $0.guid }
+		
+		// Remove the ignored items from the list
+		// Remove items that are already queued
+		copyOfItems = copyOfItems.filter { !ignoredItems.contains($0.guid) && !queued.contains($0.guid) }
+		
+		// Find the highest historical score
+		guard let highScore = (history.filter { !$0.isIgnored }.map { $0.score }.sorted(by: { $0 > $1 } ).first) else {
+			return items
+		}
+		// Get the items whose score is high
+		copyOfItems = copyOfItems.filter { $0.score > highScore }
+		guard items.count > 0 else {
+			return items
+		}
+		
+		// Get a list of the those items already grabbed.
+		// We're making sure that we don't "regrab" any items, although
+		// since we've checked them against the highest historical score
+		// it's unlikely that there are any left...
+		let grabbedItems = history.filter { !$0.isIgnored }.map { $0.guid }
+		copyOfItems = copyOfItems.filter { !grabbedItems.contains($0.guid) }
+		
+		return copyOfItems.sorted(by: { $0.score > $1.score })
+	}
+	
+	static func itemsToGrab(from movie: NZBMovie) throws -> [NZBMovieItem] {
+		return try itemsToGrab(from: movie.items.map { Grabbable(item: $0) }, withGroupID: movie.imdbID).map { $0.item as! NZBMovieItem }
+	}
+	
 	/**
 	Returns all the items that should be grabbed from the episode group, based on the history
 	of previous cycles
@@ -44,40 +99,7 @@ public struct MIVRUtilities {
 	is the preferred item
 	*/
 	static func itemsToGrab(from group: TVEpisodeGroup) throws -> [NZBTVItem] {
-		var items: [NZBTVItem] = []
-		items.append(contentsOf: group.items)
-		
-		
-		// Create the group key
-    let groupKey = group.groupKey
-		// Get the history for the group
-		let queued = try DataStoreService.shared.queue(filteredByGroupID: groupKey).map { $0.guid }
-    let history = try DataStoreService.shared.history(filteredByGroupID: groupKey)
-		// Get the ignored items
-    let ignoredItems = history.filter { $0.isIgnored }.map { $0.guid }
-
-		// Remove the ignored items from the list
-		// Remove items that are already queued
-    items = items.filter { !ignoredItems.contains($0.guid) && !queued.contains($0.guid) }
-		
-		// Find the highest historical score
-    guard let highScore = (history.filter { !$0.isIgnored }.map { $0.score }.sorted(by: { $0 > $1 } ).first) else {
-      return items
-    }
-		// Get the items whose score is high
-    items = items.filter { $0.score > highScore }
-		guard items.count > 0 else {
-			return items
-		}
-
-		// Get a list of the those items already grabbed.
-		// We're making sure that we don't "regrab" any items, although
-		// since we've checked them against the highest historical score
-		// it's unlikely that there are any left...
-		let grabbedItems = history.filter { !$0.isIgnored }.map { $0.guid }
-		items = items.filter { !grabbedItems.contains($0.guid) }
-
-    return items.sorted(by: { $0.score > $1.score })
+		return try itemsToGrab(from: group.items.map { Grabbable(item: $0) }, withGroupID: group.groupID).map { $0.item as! NZBTVItem }
   }
 
 	/**
@@ -114,7 +136,7 @@ public struct MIVRUtilities {
 			try grabItems.forEach { (grabItem) in
 				let queueItem = try DataStoreService.shared.addToQueue(
 					guid: grabItem.guid,
-					groupID: group.groupKey,
+					groupID: group.groupID,
 					name: group.name,
 					status: .queued,
 					score: grabItem.score,
