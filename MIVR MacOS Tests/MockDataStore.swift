@@ -14,44 +14,56 @@ class MockDataStore: DefaultDataStore {
 		MutableDataStoreService.shared = MockDataStore()
 	}
 	
-	var history: [MockHistoryItem] = []
-	var queue: [MockQueueItem] = []
+	var historyItems: [MockHistoryItem] = []
+	var queueItems: [MockQueueItem] = []
 	
 	fileprivate override init() {
 		// Call install ;P
 	}
-
+	
+	override func history() throws -> [HistoryItem] {
+		return historyItems
+	}
+	
 	override func history(filteredByGUID filter: String) throws -> [HistoryItem] {
-		return history.filter { $0.guid == filter }//.map { $0 as! HistoryItem }
+		return historyItems.filter { $0.guid == filter }//.map { $0 as! HistoryItem }
 	}
 	
 	override func history(filteredByGroupID filter: String) throws -> [HistoryItem] {
-		return history.filter { $0.groupID == filter }//.map { $0 as! HistoryItem }
+		return historyItems.filter { $0.groupID == filter }//.map { $0 as! HistoryItem }
 	}
 	
 	override func addToHistory(groupID: String, guid: String, ignored: Bool, score: Int) throws -> HistoryItem {
 		let item = MockHistoryItem(groupID: groupID, guid: guid, isIgnored: ignored, score: score)
-		history.append(item)
+		historyItems.append(item)
 		return item
 	}
 	
 	func reset() {
-		history.removeAll()
+		historyItems.removeAll()
 	}
 	
 	func indexOf(_ item: MockHistoryItem) -> Int? {
-		return history.index(where: { $0.key == item.key })
+		return historyItems.index(where: { $0.key == item.key })
 	}
 	
+	func indexOf(_ item: MockQueueItem) -> Int? {
+		return queueItems.index(where: { $0.key == item.key })
+	}
+
+	override func withinTransactionDo(_ block: @escaping () throws -> Void) throws {
+		try block()
+	}
+
 	override func remove(_ entries: [HistoryItem]) throws {
 		entries.forEach { (item) in
 			guard let item = item as? MockHistoryItem else {
 				return
 			}
-			guard let index = history.index(of: item) else {
+			guard let index = historyItems.index(of: item) else {
 				return
 			}
-			history.remove(at: index)
+			historyItems.remove(at: index)
 		}
 	}
 	
@@ -63,7 +75,45 @@ class MockDataStore: DefaultDataStore {
 			guard let index = indexOf(item) else {
 				return
 			}
-			history[index] = item
+			historyItems[index] = item
+		}
+	}
+	
+	override func queue() throws -> [QueueItem] {
+		return queueItems
+	}
+	
+	override func queue(filteredByGroupID filter: String) throws -> [QueueItem] {
+		return queueItems.filter { $0.groupID == filter }
+	}
+	
+	override func addToQueue(guid: String, groupID: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem {
+		let item = MockQueueItem(guid: guid, groupID: groupID, name: name, status: status, score: score, link: link)
+		queueItems.append(item)
+		return item
+	}
+	
+	override func remove(_ entries: [QueueItem]) throws {
+		entries.forEach { (item) in
+			guard let item = item as? MockQueueItem else {
+				return
+			}
+			guard let index = queueItems.index(of: item) else {
+				return
+			}
+			queueItems.remove(at: index)
+		}
+	}
+	
+	override func update(_ entries: [QueueItem]) throws {
+		entries.forEach { (item) in
+			guard let item = item as? MockQueueItem else {
+				return
+			}
+			guard let index = indexOf(item) else {
+				return
+			}
+			queueItems[index] = item
 		}
 	}
 	
@@ -100,7 +150,7 @@ class MockQueueItem: QueueItem, Equatable, Hashable {
 	var status: QueueItemStatus
 	var score: Int
 	var link: String
-
+	
 	init(guid: String, groupID: String, name: String, status: QueueItemStatus, score: Int, link: String) {
 		self.guid = guid
 		self.groupID = groupID
@@ -110,4 +160,10 @@ class MockQueueItem: QueueItem, Equatable, Hashable {
 		self.link = link
 	}
 	
+	static func == (lhs: MockQueueItem, rhs: MockQueueItem) -> Bool {
+		return lhs.guid == rhs.guid && lhs.groupID == rhs.groupID
+	}
+	
+	var hashValue: Int { return guid.hashValue }
 }
+

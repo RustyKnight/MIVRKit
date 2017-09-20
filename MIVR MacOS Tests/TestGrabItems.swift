@@ -61,6 +61,12 @@ class TestGrabItems: XCTestCase {
 		return group
 	}
 	
+	func makeTVSeriesGroup(title: String, tvdbID: Int, season: Int, episode: Int) -> NZBTV {
+		let group = makeTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+		let series = MockNZBTV(name: title, tvdbID: tvdbID, items: [], expectedItemCount: 0, episodeGroups: [group])
+		return series
+	}
+
 	public func testGrabItems() {
 		setupDataStore()
 		
@@ -85,7 +91,38 @@ class TestGrabItems: XCTestCase {
 			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "10"} ), "Expecting item with GUID of 10")
 			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "12"} ), "Expecting item with GUID of 12")
 			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "13"} ), "Expecting item with GUID of 13")
-
+			
+		} catch let error {
+			XCTFail("\(error)")
+		}
+	}
+	
+	public func testQueueItems() {
+		setupDataStore()
+		
+		let title = "Awesome TV show"
+		let tvdbID = 1234;
+		let season = 1
+		let episode = 1
+		
+		let groupID = "\(tvdbID)-S\(season)E\(episode)"
+		
+		do {
+			try setupHistory(groupID: groupID)
+			
+			let series = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+			
+			let reports = try MIVRUtilities.queueItems(from: series)
+			print("Report count = \(reports.count)")
+			XCTAssert(reports.count == 1, "Should have one report group")
+			print("Queued items = \(reports[0].queueItems.count)")
+			XCTAssert(reports[0].queueItems.count == 3, "Should have 3 queued items")
+			
+			let queuedItems = try DataStoreService.shared.queue(filteredByGroupID: groupID)
+			
+			XCTAssert(queuedItems.contains(where: { $0.guid == "10" }), "Expecting item 10")
+			XCTAssert(queuedItems.contains(where: { $0.guid == "12" }), "Expecting item 12")
+			XCTAssert(queuedItems.contains(where: { $0.guid == "13" }), "Expecting item 13")
 		} catch let error {
 			XCTFail("\(error)")
 		}
