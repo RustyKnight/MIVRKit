@@ -23,7 +23,7 @@ class MockDataStore: DefaultDataStore {
 	
 	override func history() throws -> [HistoryItem] {
 		var copy: [MockHistoryItem] = []
-		synced(historyItems) {
+		synced(self) {
 			copy.append(contentsOf: historyItems)
 		}
 		return copy
@@ -31,7 +31,7 @@ class MockDataStore: DefaultDataStore {
 	
 	override func history(filteredByGUID filter: String) throws -> [HistoryItem] {
 		var copy: [MockHistoryItem] = []
-		synced(historyItems) {
+		synced(self) {
 			copy.append(contentsOf: historyItems.filter { $0.guid == filter })
 		}
 		return copy
@@ -39,7 +39,7 @@ class MockDataStore: DefaultDataStore {
 	
 	override func history(filteredByGroupID filter: String) throws -> [HistoryItem] {
 		var copy: [MockHistoryItem] = []
-		synced(historyItems) {
+		synced(self) {
 			copy.append(contentsOf: historyItems.filter { $0.groupID == filter })
 		}
 		return copy
@@ -47,24 +47,24 @@ class MockDataStore: DefaultDataStore {
 	
 	override func addToHistory(groupID: String, guid: String, ignored: Bool, score: Int) throws -> HistoryItem {
 		let item = MockHistoryItem(groupID: groupID, guid: guid, isIgnored: ignored, score: score)
-		synced(historyItems) {
+		synced(self) {
 			historyItems.append(item)
 		}
 		return item
 	}
 	
 	func reset() {
-		synced(historyItems) {
+		synced(self) {
 			historyItems.removeAll()
 		}
-		synced(queueItems) {
+		synced(self) {
 			queueItems.removeAll()
 		}
 	}
 	
 	func indexOf(_ item: MockHistoryItem) -> Int? {
 		var index: Int? = nil
-		synced(historyItems) {
+		synced(self) {
 			index = historyItems.index(where: { $0.key == item.key })
 		}
 		return index
@@ -72,7 +72,7 @@ class MockDataStore: DefaultDataStore {
 	
 	func indexOf(_ item: MockQueueItem) -> Int? {
 		var index: Int? = nil
-		synced(queueItems) {
+		synced(self) {
 			index = queueItems.index(where: { $0.key == item.key })
 		}
 		return index
@@ -83,7 +83,7 @@ class MockDataStore: DefaultDataStore {
 	}
 
 	override func remove(_ entries: [HistoryItem]) throws {
-		synced(historyItems) {
+		synced(self) {
 			entries.forEach { (item) in
 				guard let item = item as? MockHistoryItem else {
 					return
@@ -97,7 +97,7 @@ class MockDataStore: DefaultDataStore {
 	}
 	
 	override func update(_ entries: [HistoryItem]) throws {
-		synced(historyItems) {
+		synced(self) {
 			entries.forEach { (item) in
 				guard let item = item as? MockHistoryItem else {
 					return
@@ -112,7 +112,7 @@ class MockDataStore: DefaultDataStore {
 	
 	override func queue() throws -> [QueueItem] {
 		var copy: [MockQueueItem] = []
-		synced(queueItems) {
+		synced(self) {
 			copy.append(contentsOf: queueItems)
 		}
 		return copy
@@ -120,7 +120,7 @@ class MockDataStore: DefaultDataStore {
 	
 	override func queue(filteredByGroupID filter: String) throws -> [QueueItem] {
 		var copy: [MockQueueItem] = []
-		synced(queueItems) {
+		synced(self) {
 			copy.append(contentsOf: queueItems.filter { $0.groupID == filter })
 		}
 		return copy
@@ -128,14 +128,14 @@ class MockDataStore: DefaultDataStore {
 	
 	override func addToQueue(guid: String, groupID: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem {
 		let item = MockQueueItem(guid: guid, groupID: groupID, name: name, status: status, score: score, link: link)
-		synced(queueItems) {
+		synced(self) {
 			queueItems.append(item)
 		}
 		return item
 	}
 	
 	override func remove(_ entries: [QueueItem]) throws {
-		synced(queueItems) {
+		synced(self) {
 			entries.forEach { (item) in
 				guard let item = item as? MockQueueItem else {
 					return
@@ -149,7 +149,7 @@ class MockDataStore: DefaultDataStore {
 	}
 	
 	override func update(_ entries: [QueueItem]) throws {
-		synced(queueItems) {
+		synced(self) {
 			entries.forEach { (item) in
 				guard let item = item as? MockQueueItem else {
 					return
