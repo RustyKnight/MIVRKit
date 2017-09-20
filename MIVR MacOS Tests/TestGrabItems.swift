@@ -21,10 +21,6 @@ class TestGrabItems: XCTestCase {
 		super.tearDown()
 	}
 	
-	func setupDataStore() {
-		MockDataStore.install()
-	}
-	
 	func setupHistory(groupID: String) throws {
 		let history = try DataStoreService.shared.history(filteredByGroupID: groupID)
 		try DataStoreService.shared.remove(history)
@@ -38,8 +34,8 @@ class TestGrabItems: XCTestCase {
 		try DataStoreService.shared.addToHistory(groupID: groupID, guid: "8", ignored: true, score: NZBUtilities.scoreFor(resolution: .uhd, source: .web))
 	}
 	
-	func makeTVEpisodeGroup(title: String, tvdbID: Int, season: Int, episode: Int) -> TVEpisodeGroup {
-		let group = MockTVEpisodeGroup(tvdbID: tvdbID, name: title, season: season, episode: episode)
+	func makeNZBTVEpisodeGroup(title: String, tvdbID: Int, season: Int, episode: Int) -> NZBTVEpisodeGroup {
+		let group = MockNZBTVEpisodeGroup(tvdbID: tvdbID, name: title, season: season, episode: episode)
 		
 		let seasonValue = String(format: "S%02d", season)
 		let episodeValue = String(format: "E%02d", episode)
@@ -62,24 +58,25 @@ class TestGrabItems: XCTestCase {
 	}
 	
 	func makeTVSeriesGroup(title: String, tvdbID: Int, season: Int, episode: Int) -> NZBTV {
-		let group = makeTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+		let group = makeNZBTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
 		let series = MockNZBTV(name: title, tvdbID: tvdbID, items: [], expectedItemCount: 0, episodeGroups: [group])
 		return series
 	}
 
 	public func testGrabItems() {
-		setupDataStore()
+		TestUtilities.setupDataStore()
 		
 		let title = "Awesome TV show"
 		let tvdbID = 1234;
 		let season = 1
 		let episode = 1
 		
-		let groupID = "\(tvdbID)-S\(season)E\(episode)"
-		
+		let groupID = "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
+
 		do {
 			try setupHistory(groupID: groupID)
-			let group = makeTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+			
+			let group = makeNZBTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
 			let itemsToGrab: [NZBTVItem] = try MIVRUtilities.itemsToGrab(from: group)
 			
 			print("Grabbing \(itemsToGrab.count)")
@@ -92,20 +89,22 @@ class TestGrabItems: XCTestCase {
 			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "12"} ), "Expecting item with GUID of 12")
 			XCTAssertTrue(itemsToGrab.contains(where: { $0.guid == "13"} ), "Expecting item with GUID of 13")
 			
+			
+			
 		} catch let error {
 			XCTFail("\(error)")
 		}
 	}
 	
 	public func testQueueItems() {
-		setupDataStore()
+		TestUtilities.setupDataStore()
 		
 		let title = "Awesome TV show"
 		let tvdbID = 1234;
 		let season = 1
 		let episode = 1
 		
-		let groupID = "\(tvdbID)-S\(season)E\(episode)"
+		let groupID = "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
 		
 		do {
 			try setupHistory(groupID: groupID)
@@ -123,6 +122,10 @@ class TestGrabItems: XCTestCase {
 			XCTAssert(queuedItems.contains(where: { $0.guid == "10" }), "Expecting item 10")
 			XCTAssert(queuedItems.contains(where: { $0.guid == "12" }), "Expecting item 12")
 			XCTAssert(queuedItems.contains(where: { $0.guid == "13" }), "Expecting item 13")
+			
+			queuedItems.forEach({ (item) in
+				print("\(item.groupID); \(item.guid); \(item.name)")
+			})
 		} catch let error {
 			XCTFail("\(error)")
 		}
@@ -130,16 +133,20 @@ class TestGrabItems: XCTestCase {
 	
 }
 
-class MockTVEpisodeGroup: TVEpisodeGroup {
-	let name: String
+class MockNZBTVEpisodeGroup: NZBTVEpisodeGroup {
+	var name: String {
+		return "\(seriesName) \(NZBUtilities.format(season: season, episode: episode))"
+	}
 	let tvdbID: Int
 	let season: Int
 	let episode: Int
 	
+	let seriesName: String
+	
 	var items: [NZBTVItem] = []
 	
 	init(tvdbID: Int, name: String, season: Int, episode: Int) {
-		self.name = name
+		self.seriesName = name
 		self.tvdbID = tvdbID
 		self.season = season
 		self.episode = episode
@@ -199,6 +206,6 @@ struct MockNZBTV: NZBTV {
 	let items: [NZBTVItem]
 	let expectedItemCount: Int
 	
-	let episodeGroups: [TVEpisodeGroup]
+	let episodeGroups: [NZBTVEpisodeGroup]
 }
 
