@@ -47,6 +47,7 @@ public protocol GrabbableItem {
 
 public protocol GrabbableGroup {
   var name: String {get}
+	var guideID: String {get} // ID for the guide element, ie the tvdbID or imdbID
   var groupID: String {get}
   var items: [GrabbableItem] {get}
 }
@@ -59,6 +60,7 @@ struct DefaultGrabbableItem: GrabbableItem {
 
 struct DefaultQueuableGroup: GrabbableGroup {
   let name: String
+	let guideID: String
   let groupID: String
   let items: [GrabbableItem]
 }
@@ -109,7 +111,7 @@ public struct MIVRUtilities {
 	static func itemsToGrab(from movie: NZBMovie) throws -> GrabbableGroup {
     let items = movie.items.map { DefaultGrabbableItem(guid: $0.guid, score: $0.score, link: $0.link) }
 		let grabbableItems = try itemsToGrab(from: items, withGroupID: movie.imdbID)
-    return DefaultQueuableGroup(name: movie.name, groupID: movie.groupID, items: grabbableItems)
+		return DefaultQueuableGroup(name: movie.name, guideID: movie.imdbID, groupID: movie.groupID, items: grabbableItems)
 	}
 	
 	/**
@@ -123,7 +125,7 @@ public struct MIVRUtilities {
     let items = group.items.map { DefaultGrabbableItem(guid: $0.guid, score: $0.score, link: $0.link) }
 		let grabbableItems = try itemsToGrab(from: items, withGroupID: group.groupID)
     
-    return DefaultQueuableGroup(name: group.name, groupID: group.groupID, items: grabbableItems)
+		return DefaultQueuableGroup(name: group.name, guideID: "\(group.tvdbID)", groupID: group.groupID, items: grabbableItems)
   }
 
 	
