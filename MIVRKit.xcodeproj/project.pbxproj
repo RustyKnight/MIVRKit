@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1227F70B1F71CE6000C74A29 /* TestGrabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1227F70A1F71CE6000C74A29 /* TestGrabItems.swift */; };
+		1227F70D1F71CE8900C74A29 /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1227F70C1F71CE8900C74A29 /* MockDataStore.swift */; };
 		12EF7DCC1F708B71008A7E6A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCB1F708B71008A7E6A /* Queue.swift */; };
 		12EF7DCD1F708B80008A7E6A /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF7DCB1F708B71008A7E6A /* Queue.swift */; };
 		12EF7DCE1F708B84008A7E6A /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052F2101F6FCFDB0038A4F8 /* Guide.swift */; };
@@ -47,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1227F7091F71CE5F00C74A29 /* MIVR MacOS Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MIVR MacOS Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		1227F70A1F71CE6000C74A29 /* TestGrabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGrabItems.swift; sourceTree = "<group>"; };
+		1227F70C1F71CE8900C74A29 /* MockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
 		12EF7DCB1F708B71008A7E6A /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		12EF7DCF1F708B91008A7E6A /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		12FF06371F70FFBE00FCE584 /* MIVRUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIVRUtilities.swift; sourceTree = "<group>"; };
@@ -160,6 +165,9 @@
 			isa = PBXGroup;
 			children = (
 				7052F1E41F6FC69E0038A4F8 /* Info.plist */,
+				1227F70A1F71CE6000C74A29 /* TestGrabItems.swift */,
+				1227F7091F71CE5F00C74A29 /* MIVR MacOS Tests-Bridging-Header.h */,
+				1227F70C1F71CE8900C74A29 /* MockDataStore.swift */,
 			);
 			path = "MIVR MacOS Tests";
 			sourceTree = "<group>";
@@ -302,6 +310,7 @@
 					};
 					7052F1DF1F6FC69D0038A4F8 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					7052F1EE1F6FC6B00038A4F8 = {
@@ -411,6 +420,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1227F70B1F71CE6000C74A29 /* TestGrabItems.swift in Sources */,
+				1227F70D1F71CE8900C74A29 /* MockDataStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +796,7 @@
 				DEVELOPMENT_TEAM = YWXH886EY3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -800,7 +812,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "MIVR MacOS Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -808,6 +820,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "MIVR MacOS Tests/MIVR MacOS Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
@@ -850,6 +863,7 @@
 				DEVELOPMENT_TEAM = YWXH886EY3;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -859,12 +873,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "MIVR MacOS Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/Mac";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kaizen.MIVR-MacOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "MIVR MacOS Tests/MIVR MacOS Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 			};

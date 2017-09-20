@@ -17,8 +17,8 @@ public protocol DataStore {
 	func update(_ entries: [GuideItem]) throws
 
 	func queue() throws -> [QueueItem]
-	func queue(filteredByID: String) throws -> [QueueItem]
-  func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem
+	func queue(filteredByGroupID: String) throws -> [QueueItem]
+  func addToQueue(guid: String, groupID: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem
 	func remove(_ entries: QueueItem...) throws
 	func update(_ entries: QueueItem...) throws
 	func remove(_ entries: [QueueItem]) throws
@@ -32,7 +32,8 @@ public protocol DataStore {
 	func update(_ entries: HistoryItem...) throws
 	func remove(_ entries: [HistoryItem]) throws
 	func update(_ entries: [HistoryItem]) throws
-
+	
+	func withinTransactionDo(_ block: @escaping () throws -> Void) throws
 }
 
 // This is just a "common" access point
@@ -87,11 +88,11 @@ open class DefaultDataStore: DataStore {
 		fatalError("Not yet implemented")
 	}
 	
-	open func queue(filteredByID: String) throws -> [QueueItem] {
+	open func queue(filteredByGroupID: String) throws -> [QueueItem] {
 		fatalError("Not yet implemented")
 	}
 	
-  open func addToQueue(guid: String, id: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem {
+  open func addToQueue(guid: String, groupID: String, name: String, status: QueueItemStatus, score: Int, link: String) throws -> QueueItem {
 		fatalError("Not yet implemented")
 	}
 	
@@ -143,4 +144,7 @@ open class DefaultDataStore: DataStore {
 		fatalError("Not yet implemented")
 	}
 
+	open func withinTransactionDo(_ block: @escaping () throws -> Void) throws {
+		fatalError("Not yet implemented")
+	}
 }
