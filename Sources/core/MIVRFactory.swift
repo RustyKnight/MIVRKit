@@ -182,7 +182,8 @@ public struct MIVRFactory {
 	
 	static func queueItems(from group: GrabbableGroup) throws -> QueuedItems {
 		var queueItems: [QueueItem] = []
-		let grabItems = try itemsToGrab(from: group.items, withGroupID: group.groupID)
+//		let grabItems = try itemsToGrab(from: group.items, withGroupID: group.groupID)
+		let grabItems = group.items
 		
 		try DataStoreService.shared.withinTransactionDo {
 			try grabItems.forEach { (grabItem) in
