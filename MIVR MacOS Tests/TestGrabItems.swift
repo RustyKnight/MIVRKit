@@ -78,7 +78,7 @@ class TestGrabItems: XCTestCase {
 			try setupHistory(groupID: groupID)
 			
       let group: NZBTVEpisodeGroup = makeNZBTVEpisodeGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
-      let itemsToGrab = try MIVRUtilities.filterGrabbableItems(from: group)
+      let itemsToGrab = try MIVRFactory.filterGrabbableItems(from: group)
 			
 			print("Grabbing \(itemsToGrab.items.count)")
 			itemsToGrab.items.forEach({ (item) in
@@ -113,12 +113,12 @@ class TestGrabItems: XCTestCase {
       let series: NZBTV = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
       var grabbles: [GrabbableGroup] = []
       for group in series.episodeGroups {
-        grabbles.append(try MIVRUtilities.filterGrabbableItems(from: group))
+        grabbles.append(try MIVRFactory.filterGrabbableItems(from: group))
       }
       
       XCTAssert(grabbles.count == 1, "Expecting one grabbable group got \(grabbles.count)")
       
-      let queuedGroup = try MIVRUtilities.queueItems(from: grabbles[0])
+      let queuedGroup = try MIVRFactory.queueItems(from: grabbles[0])
 
       print("Queued items = \(queuedGroup.items.count)")
       XCTAssert(queuedGroup.items.count == 3, "Should have 3 queued items")
@@ -159,12 +159,12 @@ class TestGrabItems: XCTestCase {
 			let series: NZBTV = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
 			var grabbles: [GrabbableGroup] = []
 			for group in series.episodeGroups {
-				grabbles.append(try MIVRUtilities.filterGrabbableItems(from: group))
+				grabbles.append(try MIVRFactory.filterGrabbableItems(from: group))
 			}
 			
 			XCTAssert(grabbles.count == 1, "Expecting one grabbable group got \(grabbles.count)")
 			
-			let queuedGroup = try MIVRUtilities.queueItems(from: grabbles[0])
+			let queuedGroup = try MIVRFactory.queueItems(from: grabbles[0])
 			
 			print("Queued items = \(queuedGroup.items.count)")
 			XCTAssert(queuedGroup.items.count == 1, "Should have 1 queued items")
@@ -201,7 +201,7 @@ class TestGrabItems: XCTestCase {
 			let series: NZBTV = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
 			var grabbles: [GrabbableGroup] = []
 			for group in series.episodeGroups {
-				grabbles.append(try MIVRUtilities.filterGrabbableItems(from: group))
+				grabbles.append(try MIVRFactory.filterGrabbableItems(from: group))
 			}
 			
 			XCTAssert(grabbles.count == 1, "Expecting one grabbable group got \(grabbles.count)")

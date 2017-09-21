@@ -10,6 +10,7 @@ import Foundation
 public protocol DataStore {
 
 	func guide() throws -> [GuideItem]
+	func guide(filteredByID: String) throws -> QueueItem?
 	func addToGuide(named: String, id: String, type: GuideItemType, lastGrab: Date?) throws -> GuideItem
 	func remove(_ entries: GuideItem...) throws
 	func update(_ entries: GuideItem...) throws
@@ -61,6 +62,10 @@ open class DefaultDataStore: DataStore {
 	}
 	
 	open func guide() throws -> [GuideItem] {
+		fatalError("Not yet implemented")
+	}
+	
+	open func guide(filteredByID: String) throws -> QueueItem? {
 		fatalError("Not yet implemented")
 	}
 	
