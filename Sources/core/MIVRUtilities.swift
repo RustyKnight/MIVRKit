@@ -93,6 +93,11 @@ public struct MIVRUtilities {
 		// Remove the ignored items from the list
 		// Remove items that are already queued
 		copyOfItems = copyOfItems.filter { !(ignoredIDs.contains($0.guid) || queueIDs.contains($0.guid)) }
+		// Pointless doing any more checking
+		guard copyOfItems.count > 0 else {
+			log(debug: "Items that should be grabbed groupID [\(groupID)]: \n\t\(copyOfItems.map { $0.guid })")
+			return copyOfItems
+		}
 
 		log(debug: "Remaining items for groupID [\(groupID)]: \n\t\(copyOfItems.map { $0.guid })")
 		
@@ -108,7 +113,6 @@ public struct MIVRUtilities {
 		copyOfItems = copyOfItems.filter { $0.score > highScore }
 
 		log(debug: "Items that should be grabbed groupID [\(groupID)]: \n\t\(copyOfItems.map { $0.guid })")
-
 		return copyOfItems.sorted(by: { $0.score > $1.score })
 	}
 	
