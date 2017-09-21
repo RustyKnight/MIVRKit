@@ -8,6 +8,7 @@
 import XCTest
 import NZBKit
 @testable import MIVRKit
+import KZSimpleLogger
 
 class TestGrabItems: XCTestCase {
 	
@@ -136,6 +137,83 @@ class TestGrabItems: XCTestCase {
     }
 	}
 	
+	func testThatNewItemsWithHigherScoreAreQueued() {
+		TestUtilities.setupDataStore()
+		
+		let title = "Awesome TV show"
+		let tvdbID = 1234;
+		let season = 1
+		let episode = 1
+		
+		let groupID = "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
+		
+		do {
+			try setupHistory(groupID: groupID)
+
+			let queue = try DataStoreService.shared.queue()
+			try DataStoreService.shared.remove(queue)
+			try DataStoreService.shared.addToQueue(guid: "10", groupID: groupID, name: "Test-10", status: .queued, score: NZBUtilities.scoreFor(resolution: .hd1080, source: .web), link: "")
+			try DataStoreService.shared.addToQueue(guid: "11", groupID: groupID, name: "Test-11", status: .queued, score: NZBUtilities.scoreFor(resolution: .hd720, source: .web), link: "")
+			try DataStoreService.shared.addToQueue(guid: "12", groupID: groupID, name: "Test-12", status: .queued, score: NZBUtilities.scoreFor(resolution: .uhd, source: .bluray), link: "")
+
+			let series: NZBTV = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+			var grabbles: [GrabbableGroup] = []
+			for group in series.episodeGroups {
+				grabbles.append(try MIVRUtilities.filterGrabbableItems(from: group))
+			}
+			
+			XCTAssert(grabbles.count == 1, "Expecting one grabbable group got \(grabbles.count)")
+			
+			let queuedGroup = try MIVRUtilities.queueItems(from: grabbles[0])
+			
+			print("Queued items = \(queuedGroup.items.count)")
+			XCTAssert(queuedGroup.items.count == 1, "Should have 1 queued items")
+			
+			let queuedItems = try DataStoreService.shared.queue(filteredByGroupID: groupID)
+			
+			XCTAssert(queuedItems.contains(where: { $0.guid == "13" }), "Expecting item 13")
+			
+			queuedItems.forEach({ (item) in
+				print("\(item.groupID); \(item.guid); \(item.name)")
+			})
+		} catch let error {
+			XCTFail("\(error)")
+		}
+	}
+	
+	func testThatNewItemsWithLowerScoreAreIgnored() {
+		TestUtilities.setupDataStore()
+		
+		let title = "Awesome TV show"
+		let tvdbID = 1234;
+		let season = 1
+		let episode = 1
+		
+		let groupID = "\(tvdbID)-\(NZBUtilities.format(season: season, episode: episode))"
+		
+		do {
+			try setupHistory(groupID: groupID)
+			
+			let queue = try DataStoreService.shared.queue()
+			try DataStoreService.shared.remove(queue)
+			try DataStoreService.shared.addToQueue(guid: "13", groupID: groupID, name: "Test-13", status: .queued, score: NZBUtilities.scoreFor(resolution: .uhd, source: .web), link: "")
+			
+			let series: NZBTV = makeTVSeriesGroup(title: title, tvdbID: tvdbID, season: season, episode: episode)
+			var grabbles: [GrabbableGroup] = []
+			for group in series.episodeGroups {
+				grabbles.append(try MIVRUtilities.filterGrabbableItems(from: group))
+			}
+			
+			XCTAssert(grabbles.count == 1, "Expecting one grabbable group got \(grabbles.count)")
+			
+			let itemsToGrab = grabbles[0].items
+			XCTAssert(itemsToGrab.count == 0, "Expecting zero grabbable items got \(itemsToGrab.count)")
+			
+		} catch let error {
+			XCTFail("\(error)")
+		}
+	}
+
 }
 
 class MockNZBTVEpisodeGroup: NZBTVEpisodeGroup {

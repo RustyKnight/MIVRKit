@@ -8,6 +8,7 @@
 import Foundation
 import NZBKit
 import Hydra
+import KZSimpleLogger
 
 /*
 This can be a little confusing (and annoying), but it comes down to the limitations of Swift
@@ -75,36 +76,39 @@ public struct MIVRUtilities {
 	static func itemsToGrab(from items: [GrabbableItem], withGroupID groupID: String) throws -> [GrabbableItem] {
 		var copyOfItems: [GrabbableItem] = []
 		copyOfItems.append(contentsOf: items)
-		
+
+		log(debug: "Avaliable items to grab for groupID [\(groupID)]: \n\t\(copyOfItems.map { $0.guid })")
+
 		let queueItems = try DataStoreService.shared.queue(filteredByGroupID: groupID)
-		let queued = queueItems.map { $0.guid }
+		let queueIDs = queueItems.map { $0.guid }
+		
+		log(debug: "Queued items for groupID [\(groupID)]: \n\t\(queueIDs)")
 
 		// Get the history for the group
-		let history = try DataStoreService.shared.history(filteredByGroupID: groupID)
-		// Get the ignored items
-		let ignoredItems = history.filter { $0.isIgnored }.map { $0.guid }
-		
+		let historyItems = try DataStoreService.shared.history(filteredByGroupID: groupID)
+		let ignoredIDs = historyItems.map { $0.guid }
+
+		log(debug: "Previous grabed items for groupID [\(groupID)]: \n\t\(ignoredIDs)")
+
 		// Remove the ignored items from the list
 		// Remove items that are already queued
-		copyOfItems = copyOfItems.filter { !ignoredItems.contains($0.guid) && !queued.contains($0.guid) }
+		copyOfItems = copyOfItems.filter { !(ignoredIDs.contains($0.guid) || queueIDs.contains($0.guid)) }
+
+		log(debug: "Remaining items for groupID [\(groupID)]: \n\t\(copyOfItems.map { $0.guid })")
 		
-		// Find the highest historical score
-		guard let highScore = (history.filter { !$0.isIgnored }.map { $0.score }.sorted(by: { $0 > $1 } ).first) else {
-			return items
-		}
-		// Get the items whose score is high
+		// We want to ignore the score of any historical items which have failed
+		let historyHighScore = historyItems.filter { !$0.isIgnored }.map { $0.score }.sorted(by: { $0 > $1 } ).first ?? 0
+		let queueHighScore = queueItems.map { $0.score }.sorted(by: { $0 > $1 } ).first ?? 0
+		
+		let highScore = max(historyHighScore, queueHighScore)
+
+		log(debug: "Ignoring items with score lower then or equal to \(highScore)")
+		
+		// Get the items whose score is higher
 		copyOfItems = copyOfItems.filter { $0.score > highScore }
-		guard items.count > 0 else {
-			return items
-		}
-		
-		// Get a list of the those items already grabbed.
-		// We're making sure that we don't "regrab" any items, although
-		// since we've checked them against the highest historical score
-		// it's unlikely that there are any left...
-		let grabbedItems = history.filter { !$0.isIgnored }.map { $0.guid }
-		copyOfItems = copyOfItems.filter { !grabbedItems.contains($0.guid) }
-		
+
+		log(debug: "Items that should be grabbed groupID [\(groupID)]: \n\t\(copyOfItems.map { $0.guid })")
+
 		return copyOfItems.sorted(by: { $0.score > $1.score })
 	}
 	
